@@ -1,10 +1,6 @@
 package by.cryptocurrency.quotes.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.Objects;
+import javax.persistence.*;
 
 @Entity
 public class User {
@@ -16,8 +12,7 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username) {
-        this.id = id;
+    public User(String username) {
         this.username = username;
     }
 
@@ -35,26 +30,5 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(getId(), user.getId()) && Objects.equals(getUsername(), user.getUsername());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getUsername());
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                '}';
     }
 }

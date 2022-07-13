@@ -1,15 +1,16 @@
 package by.cryptocurrency.quotes.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
 public class Coin {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "coin_id")
-    private Long coinId;
-
+    @GeneratedValue (strategy = GenerationType.AUTO)
+    private long coinId;
     private Integer id;
     private String symbol;
     private Double price_usd;
@@ -23,11 +24,11 @@ public class Coin {
         this.price_usd = price_usd;
     }
 
-    public Long getCoinId() {
+    public long getCoinId() {
         return coinId;
     }
 
-    public void setCoinId(Long coinId) {
+    public void setCoinId(long coinId) {
         this.coinId = coinId;
     }
 
@@ -53,29 +54,5 @@ public class Coin {
 
     public void setPrice_usd(Double price_usd) {
         this.price_usd = price_usd;
-    }
-
-    @Override
-    public String toString() {
-        return "Coin{" +
-                "id=" + id +
-                ", symbol='" + symbol + '\'' +
-                ", price_usd=" + price_usd +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Coin coin = (Coin) o;
-        return Objects.equals(coinId, coin.coinId) && Objects.equals(getId(), coin.getId())
-                && Objects.equals(getSymbol(), coin.getSymbol())
-                && Objects.equals(getPrice_usd(), coin.getPrice_usd());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(coinId, getId(), getSymbol(), getPrice_usd());
     }
 }

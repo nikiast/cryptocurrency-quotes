@@ -13,7 +13,7 @@ import java.util.Objects;
 
 @Service
 @EnableScheduling
-public class DefaultCoinService implements CoinService{
+public class DefaultCoinService {
     CoinRepository coinRepository;
     RestTemplate restTemplate = new RestTemplate();
     List<Coin> coinList;
@@ -22,20 +22,16 @@ public class DefaultCoinService implements CoinService{
         this.coinRepository = coinRepository;
     }
 
-    @Scheduled(fixedRate = 10000)
+    @Scheduled(fixedRate = 60000)
     public void coinsFromApiToDb() {
         String url = "https://api.coinlore.net/api/ticker/?id=90,80,48543";
-        try {
-            coinList = Arrays
-                    .stream(Objects.requireNonNull(restTemplate.getForObject(url, Coin[].class)))
-                    .toList();
-            coinRepository.saveAll(coinList);
-        }catch (Exception e){
-
-        }
+        coinList = Arrays
+                .stream(Objects.requireNonNull(restTemplate.getForObject(url, Coin[].class)))
+                .toList();
+        coinRepository.saveAll(coinList);
     }
 
-    public void costChangeCoins(){
+    public void costChangeCoins() {
 
     }
 }
