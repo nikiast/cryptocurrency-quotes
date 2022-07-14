@@ -14,19 +14,14 @@ public class UserCoinLink {
     User userId;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "coin_symbol", nullable = false)
-    Coin symbol;
-
-    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "coin_price", nullable = false)
     CoinPrice price;
 
     public UserCoinLink() {
     }
 
-    public UserCoinLink(User userId, Coin symbol, CoinPrice price) {
+    public UserCoinLink(User userId, CoinPrice price) {
         this.userId = userId;
-        this.symbol = symbol;
         this.price = price;
     }
 
@@ -46,14 +41,6 @@ public class UserCoinLink {
         this.userId = userId;
     }
 
-    public Coin getSymbol() {
-        return symbol;
-    }
-
-    public void setSymbol(Coin symbol) {
-        this.symbol = symbol;
-    }
-
     public CoinPrice getPrice() {
         return price;
     }
@@ -67,12 +54,14 @@ public class UserCoinLink {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserCoinLink that = (UserCoinLink) o;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getUserId(), that.getUserId()) && Objects.equals(getSymbol(), that.getSymbol()) && Objects.equals(getPrice(), that.getPrice());
+        return Objects.equals(getId(), that.getId())
+                && Objects.equals(getUserId(), that.getUserId())
+                && Objects.equals(getPrice(), that.getPrice());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getUserId(), getSymbol(), getPrice());
+        return Objects.hash(getId(), getUserId(), getPrice());
     }
 
     @Override
@@ -80,7 +69,6 @@ public class UserCoinLink {
         return "UserCoinLink{" +
                 "id=" + id +
                 ", userId=" + userId +
-                ", symbol=" + symbol +
                 ", price=" + price +
                 '}';
     }

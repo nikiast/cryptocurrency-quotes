@@ -7,18 +7,24 @@ public class CoinPrice {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Double price;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "coin_id", nullable = false)
-    Coin coinId;
+    private Double price;
+    private String symbol;
 
     public CoinPrice() {
     }
 
-    public CoinPrice(Double price, Coin coinId) {
+    public CoinPrice(Double price, String symbol) {
         this.price = price;
-        this.coinId = coinId;
+        this.symbol = symbol;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
     }
 
     public Long getId() {
@@ -37,11 +43,4 @@ public class CoinPrice {
         this.price = price;
     }
 
-    public Coin getCoinId() {
-        return coinId;
-    }
-
-    public void setCoinId(Coin coinId) {
-        this.coinId = coinId;
-    }
 }

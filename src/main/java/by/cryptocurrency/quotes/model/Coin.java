@@ -4,13 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.util.Objects;
 
-@Entity
+//@Entity
 public class Coin {
-    @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
-    private long coinId;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String symbol;
     private Double price_usd;
@@ -22,14 +20,6 @@ public class Coin {
         this.id = id;
         this.symbol = symbol;
         this.price_usd = price_usd;
-    }
-
-    public long getCoinId() {
-        return coinId;
-    }
-
-    public void setCoinId(long coinId) {
-        this.coinId = coinId;
     }
 
     public Integer getId() {
