@@ -22,26 +22,21 @@ public class CoinService {
     private CoinPriceRepository coinPriceRepository;
 
     private final RestTemplate restTemplate = new RestTemplate();
-    private List<Coin> coinList;
     private List<CoinPrice> coinPriceList = new ArrayList<>();
-//    private Boolean coinFlag = false;
+    private List<Coin> coinList;
+
 
     public CoinService(CoinRepository coinRepository, CoinPriceRepository coinPriceRepository) {
         this.coinRepository = coinRepository;
         this.coinPriceRepository = coinPriceRepository;
     }
 
-    @Scheduled(fixedRate = 10000)
+    @Scheduled(fixedRate = 60000)
     public void coinsFromApi() {
         String url = "https://api.coinlore.net/api/ticker/?id=90,80,48543";
         coinList = Arrays
                 .stream(Objects.requireNonNull(restTemplate.getForObject(url, Coin[].class)))
                 .toList();
-
-//        if (!coinFlag) {
-//            coinSave();
-//        }
-
         coinPriceSaveToDb();
     }
 
@@ -51,16 +46,6 @@ public class CoinService {
             coinPriceList.add(new CoinPrice(value.getPrice_usd(), value.getSymbol()));
         });
         coinPriceRepository.saveAll(coinPriceList);
-
         coinPriceList.clear();
     }
-
-//    @Transactional
-//    public void coinSave() {
-//        List<Coin> ifDbIsEmpty = coinRepository.findAll();
-//        if(ifDbIsEmpty.isEmpty()) {
-//            coinRepository.saveAll(coinList);
-//        }
-//        coinFlag = true;
-//    }
 }

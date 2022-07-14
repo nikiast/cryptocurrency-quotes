@@ -1,13 +1,16 @@
 package by.cryptocurrency.quotes.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class CoinPrice {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private Double price;
     private String symbol;
 
@@ -43,4 +46,25 @@ public class CoinPrice {
         this.price = price;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CoinPrice coinPrice = (CoinPrice) o;
+        return Objects.equals(getId(), coinPrice.getId()) && Objects.equals(getPrice(), coinPrice.getPrice()) && Objects.equals(getSymbol(), coinPrice.getSymbol());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getPrice(), getSymbol());
+    }
+
+    @Override
+    public String toString() {
+        return "CoinPrice{" +
+                "id=" + id +
+                ", price=" + price +
+                ", symbol='" + symbol + '\'' +
+                '}';
+    }
 }
