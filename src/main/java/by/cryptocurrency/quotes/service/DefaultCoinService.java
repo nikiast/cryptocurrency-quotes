@@ -68,7 +68,7 @@ public class DefaultCoinService implements CoinService {
     }
 
     public void saveCoinToDb(Coin[] coins) {
-        if (coinRepository.findAll().isEmpty()) {
+        if (coinRepository.findAll().isEmpty() || !(coinRepository.findAll().equals(Arrays.stream(coins).toList()))) {
             coinRepository.saveAll(Arrays.stream(coins).toList());
         }
         flag = true;
