@@ -1,7 +1,5 @@
 package by.cryptocurrency.quotes.model;
 
-import org.springframework.boot.context.properties.ConstructorBinding;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
