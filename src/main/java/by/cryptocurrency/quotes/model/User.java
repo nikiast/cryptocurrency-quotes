@@ -1,6 +1,9 @@
 package by.cryptocurrency.quotes.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
@@ -11,7 +14,7 @@ public class User {
     private String username;
     private String symbol;
 
-    public User() {
+    protected User() {
     }
 
     public User(String username, String symbol) {
@@ -58,10 +61,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", symbol='" + symbol + '\'' +
-                '}';
+        return "User{" + "id=" + id + ", username='" + username + '\'' + ", symbol='" + symbol + '\'' + '}';
     }
 }

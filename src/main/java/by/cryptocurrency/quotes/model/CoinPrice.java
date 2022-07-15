@@ -1,5 +1,7 @@
 package by.cryptocurrency.quotes.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,11 +12,12 @@ import java.util.Objects;
 public class CoinPrice {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonIgnore
     private Long id;
     private Double price;
     private String symbol;
 
-    public CoinPrice() {
+    protected CoinPrice() {
     }
 
     public CoinPrice(Double price, String symbol) {

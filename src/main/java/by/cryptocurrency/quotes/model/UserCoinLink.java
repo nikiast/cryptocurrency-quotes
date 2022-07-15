@@ -17,7 +17,7 @@ public class UserCoinLink {
     @JoinColumn(name = "coin_price", nullable = false)
     CoinPrice price;
 
-    public UserCoinLink() {
+    protected UserCoinLink() {
     }
 
     public UserCoinLink(User userId, CoinPrice price) {

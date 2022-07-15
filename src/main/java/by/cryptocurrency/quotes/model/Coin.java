@@ -2,6 +2,7 @@ package by.cryptocurrency.quotes.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.util.Objects;
 
 @Entity
@@ -9,9 +10,15 @@ public class Coin {
     @Id
     private Integer id;
     private String symbol;
+    @Transient
     private Double price_usd;
 
-    public Coin() {
+    protected Coin() {
+    }
+
+    public Coin(Integer id, String symbol) {
+        this.id = id;
+        this.symbol = symbol;
     }
 
     public Coin(Integer id, String symbol, Double price_usd) {
