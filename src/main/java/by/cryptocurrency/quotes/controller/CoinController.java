@@ -14,8 +14,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/coin")
 public class CoinController {
-    DefaultCoinService defaultCoinService;
-    CoinRepository coinRepository;
+    private DefaultCoinService defaultCoinService;
+    private CoinRepository coinRepository;
 
     public CoinController(DefaultCoinService defaultCoinService, CoinRepository coinRepository) {
         this.defaultCoinService = defaultCoinService;

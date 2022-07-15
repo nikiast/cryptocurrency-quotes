@@ -1,5 +1,7 @@
 package by.cryptocurrency.quotes.model;
 
+import org.springframework.boot.context.properties.ConstructorBinding;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
@@ -14,11 +16,6 @@ public class Coin {
     private Double price_usd;
 
     protected Coin() {
-    }
-
-    public Coin(Integer id, String symbol) {
-        this.id = id;
-        this.symbol = symbol;
     }
 
     public Coin(Integer id, String symbol, Double price_usd) {
