@@ -24,7 +24,7 @@ public class DefaultCoinService implements CoinService {
     private final CoinRepository coinRepository;
 
     private final RestTemplate restTemplate = new RestTemplate();
-    private final String url = "https://api.coinlore.net/api/ticker/?id=90,80,48543";
+    private final static String url = "https://api.coinlore.net/api/ticker/?id=90,80,48543";
     private List<CoinPrice> coinPriceList = new ArrayList<>();
     private final Logger log = LoggerFactory.getLogger(DefaultUserCoinLinkService.class);
     private Boolean flag = false;
@@ -43,7 +43,7 @@ public class DefaultCoinService implements CoinService {
     public void coinsFromApi() {
         try {
             Coin[] coins = Objects.requireNonNull(restTemplate.getForObject(url, Coin[].class));
-            Arrays.stream(coins).forEach(coin -> {
+             Arrays.stream(coins).forEach(coin -> {
                 coinPriceList.add(new CoinPrice(coin.getPrice_usd(), coin.getSymbol()));
             });
             if (!flag) {
@@ -68,9 +68,13 @@ public class DefaultCoinService implements CoinService {
     }
 
     public void saveCoinToDb(Coin[] coins) {
-        if (coinRepository.findAll().isEmpty() || !(coinRepository.findAll().equals(Arrays.stream(coins).toList()))) {
+        if (!(coinRepository.findAll().equals(Arrays.stream(coins).toList()))) {
             coinRepository.saveAll(Arrays.stream(coins).toList());
         }
         flag = true;
+    }
+
+    public List<Coin> availableCoin() {
+        return coinRepository.findAll();
     }
 }

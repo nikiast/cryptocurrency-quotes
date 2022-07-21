@@ -29,7 +29,7 @@ public class DefaultUserCoinLinkService implements UserCoinLinkService {
                 .stream()
                 .filter(coinPrice -> user.getSymbol().equals(coinPrice.getSymbol()))
                 .findFirst()
-                .get();
+                .orElseThrow();
         UserCoinLink userCoinLink = new UserCoinLink(user, currentCoinPrice);
         userCoinLinkRepository.save(userCoinLink);
     }

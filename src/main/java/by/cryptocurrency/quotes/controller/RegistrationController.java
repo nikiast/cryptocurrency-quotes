@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class RegistrationController {
-    private DefaultUserService defaultUserService;
+    private final DefaultUserService defaultUserService;
 
     public RegistrationController(DefaultUserService defaultUserService) {
         this.defaultUserService = defaultUserService;
