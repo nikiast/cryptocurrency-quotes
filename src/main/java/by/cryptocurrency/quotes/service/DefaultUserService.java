@@ -8,16 +8,16 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class DefaultUserService implements UserService {
     private final UserRepository userRepository;
-    private final DefaultUserCoinLinkService defaultUserCoinLinkService;
+    private final DefaultUserCoinPriceService defaultUserCoinPriceService;
 
-    public DefaultUserService(UserRepository userRepository, DefaultUserCoinLinkService defaultUserCoinLinkService) {
+    public DefaultUserService(UserRepository userRepository, DefaultUserCoinPriceService defaultUserCoinPriceService) {
         this.userRepository = userRepository;
-        this.defaultUserCoinLinkService = defaultUserCoinLinkService;
+        this.defaultUserCoinPriceService = defaultUserCoinPriceService;
     }
 
     @Transactional
     public void save(User user) {
         userRepository.save(user);
-        defaultUserCoinLinkService.userCoinLinkSaveToDb(user);
+        defaultUserCoinPriceService.userCoinLinkSaveToDb(user);
     }
 }

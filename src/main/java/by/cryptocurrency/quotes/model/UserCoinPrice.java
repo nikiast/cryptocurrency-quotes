@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-public class UserCoinLink {
+public class UserCoinPrice {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -17,10 +17,10 @@ public class UserCoinLink {
     @JoinColumn(name = "coin_price", nullable = false)
     CoinPrice price;
 
-    protected UserCoinLink() {
+    protected UserCoinPrice() {
     }
 
-    public UserCoinLink(User userId, CoinPrice price) {
+    public UserCoinPrice(User userId, CoinPrice price) {
         this.userId = userId;
         this.price = price;
     }
@@ -53,7 +53,7 @@ public class UserCoinLink {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserCoinLink that = (UserCoinLink) o;
+        UserCoinPrice that = (UserCoinPrice) o;
         return Objects.equals(getId(), that.getId())
                 && Objects.equals(getUserId(), that.getUserId())
                 && Objects.equals(getPrice(), that.getPrice());

@@ -1,25 +1,18 @@
-package by.cryptocurrency.quotes.model;
+package by.cryptocurrency.quotes.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import java.io.Serializable;
 import java.util.Objects;
 
-@Entity
-public class Coin {
-    @Id
+public class Coin implements Serializable {
     private Integer id;
     private String symbol;
-    @Transient
-    private Double price_usd;
 
-    protected Coin() {
+    public Coin() {
     }
 
-    public Coin(Integer id, String symbol, Double price_usd) {
+    public Coin(Integer id, String symbol) {
         this.id = id;
         this.symbol = symbol;
-        this.price_usd = price_usd;
     }
 
     public Integer getId() {
@@ -38,25 +31,17 @@ public class Coin {
         this.symbol = symbol;
     }
 
-    public Double getPrice_usd() {
-        return price_usd;
-    }
-
-    public void setPrice_usd(Double price_usd) {
-        this.price_usd = price_usd;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Coin coin = (Coin) o;
-        return Objects.equals(getId(), coin.getId()) && Objects.equals(getSymbol(), coin.getSymbol()) && Objects.equals(getPrice_usd(), coin.getPrice_usd());
+        return Objects.equals(getId(), coin.getId()) && Objects.equals(getSymbol(), coin.getSymbol());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getSymbol(), getPrice_usd());
+        return Objects.hash(getId(), getSymbol());
     }
 
     @Override
@@ -64,7 +49,6 @@ public class Coin {
         return "Coin{" +
                 "id=" + id +
                 ", symbol='" + symbol + '\'' +
-                ", price_usd=" + price_usd +
                 '}';
     }
 }

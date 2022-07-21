@@ -1,11 +1,9 @@
 package by.cryptocurrency.quotes.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -14,14 +12,16 @@ public class CoinPrice {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
     private Long id;
-    private Double price;
+
+    @JsonProperty("price_usd")
+    private Double priceUsd;
     private String symbol;
 
     protected CoinPrice() {
     }
 
-    public CoinPrice(Double price, String symbol) {
-        this.price = price;
+    public CoinPrice(Double priceUsd, String symbol) {
+        this.priceUsd = priceUsd;
         this.symbol = symbol;
     }
 
@@ -41,12 +41,12 @@ public class CoinPrice {
         this.id = id;
     }
 
-    public Double getPrice() {
-        return price;
+    public Double getPriceUsd() {
+        return priceUsd;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setPriceUsd(Double priceUsd) {
+        this.priceUsd = priceUsd;
     }
 
     @Override
@@ -54,19 +54,19 @@ public class CoinPrice {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CoinPrice coinPrice = (CoinPrice) o;
-        return Objects.equals(getId(), coinPrice.getId()) && Objects.equals(getPrice(), coinPrice.getPrice()) && Objects.equals(getSymbol(), coinPrice.getSymbol());
+        return Objects.equals(getId(), coinPrice.getId()) && Objects.equals(getPriceUsd(), coinPrice.getPriceUsd()) && Objects.equals(getSymbol(), coinPrice.getSymbol());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getPrice(), getSymbol());
+        return Objects.hash(getId(), getPriceUsd(), getSymbol());
     }
 
     @Override
     public String toString() {
         return "CoinPrice{" +
                 "id=" + id +
-                ", price=" + price +
+                ", priceUsd=" + priceUsd +
                 ", symbol='" + symbol + '\'' +
                 '}';
     }
