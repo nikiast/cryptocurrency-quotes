@@ -3,24 +3,24 @@ package by.cryptocurrency.quotes.dto;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Coin implements Serializable {
-    private Integer id;
+public class UserDTO implements Serializable {
+    private String username;
     private String symbol;
 
-    public Coin() {
+    public UserDTO() {
     }
 
-    public Coin(Integer id, String symbol) {
-        this.id = id;
+    public UserDTO(String username, String symbol) {
+        this.username = username;
         this.symbol = symbol;
     }
 
-    public Integer getId() {
-        return id;
+    public String getUsername() {
+        return username;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getSymbol() {
@@ -35,19 +35,19 @@ public class Coin implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Coin coin = (Coin) o;
-        return Objects.equals(getId(), coin.getId()) && Objects.equals(getSymbol(), coin.getSymbol());
+        UserDTO userDTO = (UserDTO) o;
+        return Objects.equals(getUsername(), userDTO.getUsername()) && Objects.equals(getSymbol(), userDTO.getSymbol());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getSymbol());
+        return Objects.hash(getUsername(), getSymbol());
     }
 
     @Override
     public String toString() {
-        return "Coin{" +
-                "id=" + id +
+        return "UserDTO{" +
+                "username='" + username + '\'' +
                 ", symbol='" + symbol + '\'' +
                 '}';
     }

@@ -1,5 +1,6 @@
 package by.cryptocurrency.quotes.controller;
 
+import by.cryptocurrency.quotes.dto.UserDTO;
 import by.cryptocurrency.quotes.model.User;
 import by.cryptocurrency.quotes.service.DefaultUserService;
 import org.springframework.http.HttpStatus;
@@ -17,8 +18,12 @@ public class RegistrationController {
     }
 
     @PostMapping("/notify")
-    public ResponseEntity<HttpStatus> registration(@RequestBody User user) {
-        defaultUserService.save(user);
+    public ResponseEntity<HttpStatus> registration(@RequestBody UserDTO userDTO) {
+        defaultUserService.save(convertToUser(userDTO));
         return ResponseEntity.ok(HttpStatus.CREATED);
+    }
+
+    private User convertToUser(UserDTO userDTO){
+        return new User(userDTO.getUsername(), userDTO.getSymbol());
     }
 }

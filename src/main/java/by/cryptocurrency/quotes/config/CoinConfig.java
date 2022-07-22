@@ -1,7 +1,5 @@
 package by.cryptocurrency.quotes.config;
 
-import by.cryptocurrency.quotes.dto.Coin;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
@@ -10,9 +8,4 @@ import org.springframework.context.annotation.Scope;
 @PropertySource("classpath:coin.properties")
 @Scope("prototype")
 public class CoinConfig {
-
-    @Bean
-    public Coin coin(){
-        return new Coin();
-    }
 }

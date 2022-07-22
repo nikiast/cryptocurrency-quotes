@@ -1,7 +1,6 @@
 package by.cryptocurrency.quotes.service;
 
 import by.cryptocurrency.quotes.config.CoinConfig;
-import by.cryptocurrency.quotes.dto.Coin;
 import by.cryptocurrency.quotes.model.CoinPrice;
 import by.cryptocurrency.quotes.repository.CoinPriceRepository;
 import org.slf4j.Logger;
@@ -16,15 +15,13 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @EnableScheduling
-public class DefaultCoinService implements CoinService{
+public class DefaultCoinService implements CoinService {
     private final CoinPriceRepository coinPriceRepository;
     private final DefaultUserCoinPriceService defaultUserCoinPriceService;
 
-    private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(CoinConfig.class);
     private final RestTemplate restTemplate = new RestTemplate();
     private final static String url = "https://api.coinlore.net/api/ticker/?id=90,80,48543";
     private final List<CoinPrice> coinPriceList = new ArrayList<>();
@@ -50,7 +47,7 @@ public class DefaultCoinService implements CoinService{
             defaultUserCoinPriceService.notifyOfPriceChangesMoreThanOnePercent(coinPriceListToMap(coinPriceList));
             coinPriceList.clear();
         } catch (HttpServerErrorException e) {
-            log.info("Incorrect response from the server" + e);
+            log.error("Incorrect response from the server" + e);
         }
     }
 
@@ -63,5 +60,4 @@ public class DefaultCoinService implements CoinService{
     public CoinPrice getCurrentPrice(String symbol) {
         return coinPriceListToMap(coinPriceRepository.findLast3Coin()).get(symbol);
     }
-
 }
