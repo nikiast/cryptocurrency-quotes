@@ -1,6 +1,7 @@
 package by.cryptocurrency.quotes.service;
 
 import by.cryptocurrency.quotes.config.CoinConfig;
+import by.cryptocurrency.quotes.dto.AvailableCoin;
 import by.cryptocurrency.quotes.model.CoinPrice;
 import by.cryptocurrency.quotes.repository.CoinPriceRepository;
 import org.slf4j.Logger;
@@ -22,6 +23,7 @@ public class DefaultCoinService implements CoinService {
     private final CoinPriceRepository coinPriceRepository;
     private final DefaultUserCoinPriceService defaultUserCoinPriceService;
 
+    private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(CoinConfig.class);
     private final RestTemplate restTemplate = new RestTemplate();
     private final static String url = "https://api.coinlore.net/api/ticker/?id=90,80,48543";
     private final List<CoinPrice> coinPriceList = new ArrayList<>();
@@ -59,5 +61,11 @@ public class DefaultCoinService implements CoinService {
 
     public CoinPrice getCurrentPrice(String symbol) {
         return coinPriceListToMap(coinPriceRepository.findLast3Coin()).get(symbol);
+    }
+
+    public List<AvailableCoin> getAvailableCoin() {
+        return List.of(context.getBean("btc", AvailableCoin.class),
+                context.getBean("eth", AvailableCoin.class),
+                context.getBean("sol", AvailableCoin.class));
     }
 }
