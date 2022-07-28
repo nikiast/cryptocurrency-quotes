@@ -11,4 +11,6 @@ public interface CoinService {
     CoinPrice getCurrentPrice(String symbol);
 
     List<AvailableCoin> getAvailableCoin();
+
+    Object convertCoinPriceToCoinDTO(String symbol);
 }

@@ -2,6 +2,7 @@ package by.cryptocurrency.quotes.service;
 
 import by.cryptocurrency.quotes.config.CoinConfig;
 import by.cryptocurrency.quotes.dto.AvailableCoin;
+import by.cryptocurrency.quotes.dto.CoinDTO;
 import by.cryptocurrency.quotes.model.CoinPrice;
 import by.cryptocurrency.quotes.repository.CoinPriceRepository;
 import org.slf4j.Logger;
@@ -67,5 +68,10 @@ public class DefaultCoinService implements CoinService {
         return List.of(context.getBean("btc", AvailableCoin.class),
                 context.getBean("eth", AvailableCoin.class),
                 context.getBean("sol", AvailableCoin.class));
+    }
+
+    public CoinDTO convertCoinPriceToCoinDTO(String symbol) {
+        CoinPrice coinPrice = getCurrentPrice(symbol);
+        return new CoinDTO(coinPrice.getSymbol(), coinPrice.getPriceUsd());
     }
 }

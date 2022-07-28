@@ -28,11 +28,7 @@ public class CoinController {
 
     @GetMapping("/getPrice/{symbol}")
     public Object getActualPrice(@PathVariable("symbol") String symbol) {
-        return convertToCoinDTO(symbol);
+        return defaultCoinService.convertCoinPriceToCoinDTO(symbol);
     }
 
-    private CoinDTO convertToCoinDTO(String symbol) {
-        CoinPrice coinPrice = defaultCoinService.getCurrentPrice(symbol);
-        return new CoinDTO(coinPrice.getSymbol(), coinPrice.getPriceUsd());
-    }
 }
