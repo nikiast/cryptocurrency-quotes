@@ -3,7 +3,7 @@ package by.cryptocurrency.quotes.service;
 import by.cryptocurrency.quotes.config.CoinConfig;
 import by.cryptocurrency.quotes.dto.AvailableCoin;
 import by.cryptocurrency.quotes.dto.CoinDTO;
-import by.cryptocurrency.quotes.model.CoinPrice;
+import by.cryptocurrency.quotes.model.Coin;
 import by.cryptocurrency.quotes.repository.CoinPriceRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +27,7 @@ public class DefaultCoinService implements CoinService {
     private final AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(CoinConfig.class);
     private final RestTemplate restTemplate = new RestTemplate();
     private final static String url = "https://api.coinlore.net/api/ticker/?id=90,80,48543";
-    private final List<CoinPrice> coinPriceList = new ArrayList<>();
+    private final List<Coin> coinList = new ArrayList<>();
     private final Logger log = LoggerFactory.getLogger(DefaultUserCoinPriceService.class);
 
 
@@ -41,26 +41,26 @@ public class DefaultCoinService implements CoinService {
     @Transactional
     public void coinsFromApi() {
         try {
-            CoinPrice[] coins = Objects.requireNonNull(restTemplate.getForObject(url, CoinPrice[].class));
+            Coin[] coins = Objects.requireNonNull(restTemplate.getForObject(url, Coin[].class));
             Arrays.stream(coins).forEach(coin -> {
-                coinPriceList.add(new CoinPrice(coin.getPriceUsd(), coin.getSymbol()));
+                coinList.add(new Coin(coin.getPriceUsd(), coin.getSymbol()));
             });
 
-            coinPriceRepository.saveAll(coinPriceList);
-            defaultUserCoinPriceService.notifyOfPriceChangesMoreThanOnePercent(coinPriceListToMap(coinPriceList));
-            coinPriceList.clear();
+            coinPriceRepository.saveAll(coinList);
+            defaultUserCoinPriceService.notifyOfPriceChangesMoreThanOnePercent(coinPriceListToMap(coinList));
+            coinList.clear();
         } catch (HttpServerErrorException e) {
             log.error("Incorrect response from the server" + e);
         }
     }
 
-    public Map<String, CoinPrice> coinPriceListToMap(List<CoinPrice> coinPriceList) {
-        return coinPriceList
+    public Map<String, Coin> coinPriceListToMap(List<Coin> coinList) {
+        return coinList
                 .stream()
-                .collect(Collectors.toMap(CoinPrice::getSymbol, k -> k));
+                .collect(Collectors.toMap(Coin::getSymbol, k -> k));
     }
 
-    public CoinPrice getCurrentPrice(String symbol) {
+    public Coin getCurrentPrice(String symbol) {
         return coinPriceListToMap(coinPriceRepository.findLast3Coin()).get(symbol);
     }
 
@@ -71,7 +71,7 @@ public class DefaultCoinService implements CoinService {
     }
 
     public CoinDTO convertCoinPriceToCoinDTO(String symbol) {
-        CoinPrice coinPrice = getCurrentPrice(symbol);
-        return new CoinDTO(coinPrice.getSymbol(), coinPrice.getPriceUsd());
+        Coin coin = getCurrentPrice(symbol);
+        return new CoinDTO(coin.getSymbol(), coin.getPriceUsd());
     }
 }

@@ -15,12 +15,12 @@ public class UserCoinPrice {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "coin_price", nullable = false)
-    CoinPrice price;
+    Coin price;
 
     protected UserCoinPrice() {
     }
 
-    public UserCoinPrice(User userId, CoinPrice price) {
+    public UserCoinPrice(User userId, Coin price) {
         this.userId = userId;
         this.price = price;
     }
@@ -41,11 +41,11 @@ public class UserCoinPrice {
         this.userId = userId;
     }
 
-    public CoinPrice getPrice() {
+    public Coin getPrice() {
         return price;
     }
 
-    public void setPrice(CoinPrice price) {
+    public void setPrice(Coin price) {
         this.price = price;
     }
 

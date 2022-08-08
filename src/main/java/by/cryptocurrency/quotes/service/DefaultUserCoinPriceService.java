@@ -1,6 +1,6 @@
 package by.cryptocurrency.quotes.service;
 
-import by.cryptocurrency.quotes.model.CoinPrice;
+import by.cryptocurrency.quotes.model.Coin;
 import by.cryptocurrency.quotes.model.User;
 import by.cryptocurrency.quotes.model.UserCoinPrice;
 import by.cryptocurrency.quotes.repository.CoinPriceRepository;
@@ -25,16 +25,16 @@ public class DefaultUserCoinPriceService implements UserCoinLinkService {
 
     @Transactional
     public void userCoinLinkSaveToDb(User user) {
-        CoinPrice currentCoinPrice = coinPriceRepository.findLast3Coin()
+        Coin currentCoin = coinPriceRepository.findLast3Coin()
                 .stream()
                 .filter(coinPrice -> user.getSymbol().equals(coinPrice.getSymbol()))
                 .findFirst()
                 .orElseThrow();
-        UserCoinPrice userCoinPrice = new UserCoinPrice(user, currentCoinPrice);
+        UserCoinPrice userCoinPrice = new UserCoinPrice(user, currentCoin);
         userCoinPriceRepository.save(userCoinPrice);
     }
 
-    public void notifyOfPriceChangesMoreThanOnePercent(Map<String, CoinPrice> currentPriceMap) {
+    public void notifyOfPriceChangesMoreThanOnePercent(Map<String, Coin> currentPriceMap) {
         userCoinPriceRepository.findAll().forEach(userCoinPrice -> {
             String symbol = userCoinPrice.getUserId().getSymbol();
             String username = userCoinPrice.getUserId().getUsername();

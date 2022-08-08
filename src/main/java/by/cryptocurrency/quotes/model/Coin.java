@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-public class CoinPrice {
+public class Coin {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
@@ -17,10 +17,10 @@ public class CoinPrice {
     private Double priceUsd;
     private String symbol;
 
-    protected CoinPrice() {
+    protected Coin() {
     }
 
-    public CoinPrice(Double priceUsd, String symbol) {
+    public Coin(Double priceUsd, String symbol) {
         this.priceUsd = priceUsd;
         this.symbol = symbol;
     }
@@ -53,8 +53,8 @@ public class CoinPrice {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CoinPrice coinPrice = (CoinPrice) o;
-        return Objects.equals(getId(), coinPrice.getId()) && Objects.equals(getPriceUsd(), coinPrice.getPriceUsd()) && Objects.equals(getSymbol(), coinPrice.getSymbol());
+        Coin coin = (Coin) o;
+        return Objects.equals(getId(), coin.getId()) && Objects.equals(getPriceUsd(), coin.getPriceUsd()) && Objects.equals(getSymbol(), coin.getSymbol());
     }
 
     @Override

@@ -1,14 +1,14 @@
 package by.cryptocurrency.quotes.service;
 
 import by.cryptocurrency.quotes.dto.AvailableCoin;
-import by.cryptocurrency.quotes.model.CoinPrice;
+import by.cryptocurrency.quotes.model.Coin;
 
 import java.util.List;
 
 public interface CoinService {
     void coinsFromApi();
 
-    CoinPrice getCurrentPrice(String symbol);
+    Coin getCurrentPrice(String symbol);
 
     List<AvailableCoin> getAvailableCoin();
 

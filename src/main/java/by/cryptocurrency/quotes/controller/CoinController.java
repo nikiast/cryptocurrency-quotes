@@ -1,8 +1,6 @@
 package by.cryptocurrency.quotes.controller;
 
 import by.cryptocurrency.quotes.dto.AvailableCoin;
-import by.cryptocurrency.quotes.dto.CoinDTO;
-import by.cryptocurrency.quotes.model.CoinPrice;
 import by.cryptocurrency.quotes.service.CoinService;
 import by.cryptocurrency.quotes.service.DefaultCoinService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/coin")
+@RequestMapping("/coins")
 public class CoinController {
     private final CoinService defaultCoinService;
 
@@ -26,7 +24,7 @@ public class CoinController {
         return defaultCoinService.getAvailableCoin();
     }
 
-    @GetMapping("/getPrice/{symbol}")
+    @GetMapping("/price/{symbol}")
     public Object getActualPrice(@PathVariable("symbol") String symbol) {
         return defaultCoinService.convertCoinPriceToCoinDTO(symbol);
     }
